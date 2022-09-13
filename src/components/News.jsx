@@ -38,10 +38,11 @@ export default class News extends Component {
             articles : this.state.articles.concat(parsedData.articles),
             totalResults:parsedData.totalResults
         })
+        console.log(this.state.articles);
     }
     async componentDidMount(){
         console.log("component Did Mount")
-        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}`;
         this.setState({loading:true})
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -55,7 +56,6 @@ export default class News extends Component {
         <>
             <h1 className="text-center" style={{margin:"40px",marginTop:"100px"}}>MyNews- Top Headlines from {this.capitalizeFirstLetter(this.props.category)} Headlines</h1>
                 {this.state.loading && <Spinner/>}
-                <InfiniteScroll dataLength={this.state.articles.length} next={this.fetchMoreData} hasMore={this.state.articles.length!==this.state.totalResults} loader={<Spinner/>}>
                 <div className="container">
                 <div className="row">
                     {this.state.articles.map((ele)=>{
@@ -68,7 +68,6 @@ export default class News extends Component {
                     })}
                 </div>
                 </div>
-            </InfiniteScroll>
       </>
     )
   }
