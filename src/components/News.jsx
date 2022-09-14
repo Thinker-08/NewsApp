@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './spinner'
 import PropTypes from 'prop-types'
-import InfiniteScroll from 'react-infinite-scroll-component';
 export default class News extends Component {
     static defaultProps = {
         country:"in",
@@ -49,7 +48,7 @@ export default class News extends Component {
         this.setState({articles : parsedData.articles,
             totalarticles:parsedData.totalResults,
             loading:false,
-            page:this.state.page+1});
+            page:this.state.page+1})    
     }
   render() {
     return (
@@ -59,6 +58,7 @@ export default class News extends Component {
                 <div className="container">
                 <div className="row">
                     {this.state.articles.map((ele)=>{
+                        console.log(this.state.articles);
                     return(
                         <div className="col-lg-4 my-3" key={ele.url?ele.url:"/"}>
                             <NewsItem title={ele.title?ele.title:" "} description={ele.description?ele.description.slice(0,90):" "}
